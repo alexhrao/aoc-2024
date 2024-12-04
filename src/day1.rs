@@ -29,9 +29,7 @@ pub fn part1((left, right): &(Vec<u32>, Vec<u32>)) -> u32 {
 pub fn part2((left, right): &(Vec<u32>, Vec<u32>)) -> u32 {
     let mut right_count: HashMap<&u32, u32> = HashMap::new();
     for r in right {
-        let c = right_count
-            .entry(r)
-            .or_default();
+        let c = right_count.entry(r).or_default();
         *c += 1;
     }
     left.iter()
