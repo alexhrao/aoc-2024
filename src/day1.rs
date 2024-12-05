@@ -25,6 +25,18 @@ pub fn part1((left, right): &(Vec<u32>, Vec<u32>)) -> u32 {
         .sum()
 }
 
+#[aoc(day1, part1, rayon)]
+pub fn part1_rayon((left, right): &(Vec<u32>, Vec<u32>)) -> u32 {
+    use rayon::prelude::*;
+    let (mut left, mut right) = (left.clone(), right.clone());
+    left.par_sort_unstable();
+    right.par_sort_unstable();
+    left.par_iter()
+        .zip(right)
+        .map(|(left, right)| left.abs_diff(right))
+        .sum()
+}
+
 #[aoc(day1, part2)]
 pub fn part2((left, right): &(Vec<u32>, Vec<u32>)) -> u32 {
     let mut right_count: HashMap<&u32, u32> = HashMap::new();
@@ -33,6 +45,19 @@ pub fn part2((left, right): &(Vec<u32>, Vec<u32>)) -> u32 {
         *c += 1;
     }
     left.iter()
+        .filter_map(|l| right_count.get(l).map(|r| l * r))
+        .sum()
+}
+
+#[aoc(day1, part2, rayon)]
+pub fn part2_rayon((left, right): &(Vec<u32>, Vec<u32>)) -> u32 {
+    use rayon::prelude::*;
+    let mut right_count: HashMap<&u32, u32> = HashMap::new();
+    for r in right {
+        let c = right_count.entry(r).or_default();
+        *c += 1;
+    }
+    left.par_iter()
         .filter_map(|l| right_count.get(l).map(|r| l * r))
         .sum()
 }

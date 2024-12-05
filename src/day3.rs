@@ -170,8 +170,8 @@ impl State {
     }
 }
 
-#[aoc(day3, part1, no_regex)]
-pub fn part1_no_regex(input: &str) -> u32 {
+#[aoc(day3, part1)]
+pub fn part1(input: &str) -> u32 {
     let mut state = State {
         step: Step::Start,
         left: String::new(),

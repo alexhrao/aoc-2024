@@ -29,10 +29,34 @@ pub fn part1(reports: &[Vec<u32>]) -> usize {
     reports.iter().filter(|r| is_safe(r)).count()
 }
 
+#[aoc(day2, part1, rayon)]
+pub fn part1_rayon(reports: &[Vec<u32>]) -> usize {
+    use rayon::prelude::*;
+    reports.par_iter().filter(|r| is_safe(r)).count()
+}
+
 #[aoc(day2, part2)]
 pub fn part2(reports: &[Vec<u32>]) -> usize {
     reports
         .iter()
+        .filter(|&r| {
+            for i in 0..r.len() {
+                let mut r = r.clone();
+                r.remove(i);
+                if is_safe(&r) {
+                    return true;
+                }
+            }
+            false
+        })
+        .count()
+}
+
+#[aoc(day2, part2, rayon)]
+pub fn part2_rayon(reports: &[Vec<u32>]) -> usize {
+    use rayon::prelude::*;
+    reports
+        .par_iter()
         .filter(|&r| {
             for i in 0..r.len() {
                 let mut r = r.clone();
