@@ -156,7 +156,7 @@ pub fn part2(grid: &Grid) -> usize {
         };
         visited.insert(posn);
     }
-    
+
     visited
         .par_drain()
         .filter(|posn| grid.makes_cycle(posn))
