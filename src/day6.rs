@@ -68,12 +68,19 @@ pub fn gen(input: &str) -> Grid {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
-enum Direction {
+pub enum Direction {
     Up,
     Right,
     Down,
     Left,
 }
+
+pub const DIRS: [Direction; 4] = [
+    Direction::Up,
+    Direction::Right,
+    Direction::Down,
+    Direction::Left,
+];
 
 impl Direction {
     pub fn step(&self, posn: (usize, usize), grid: (usize, usize)) -> Option<(usize, usize)> {
