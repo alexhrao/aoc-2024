@@ -24,6 +24,7 @@ challenges. It follows the format set out by [`cargo-aoc`](https://github.com/go
 | [8](src/day8.rs)   |   ✅   |   ✅   |                                  |
 | [9](src/day9.rs)   |   ✅   |   ✅   |                                  |
 | [10](src/day10.rs) |   ✅   |   ✅   | [Commentary](#day-10-commentary) |
+| [11](src/day11.rs) |   ✅   |   ✅   | [Commentary](#day-11-commentary) |
 
 ### Day 7 Commentary
 
@@ -36,3 +37,25 @@ for overflows...
 Delighted that I was able to use the `Direction` enum from my work on Day 6. I
 was especially proud that I was able to see the need for a `HashSet` in part 1
 before even testing it.
+
+### Day 11 Commentary
+
+The first part was pretty simple -- mostly just a simulator. I made the mistake
+of assuming that order would definitively matter, since that was called out in
+the description.
+
+Part 2 was an interesting problem. Based on some back of the envelope math, my
+Part 1 solution would take a few months to complete it, even if I added some
+parallelization. For awhile I focused on trying to "cache" entries; if I'd seen
+a stone before, remember what it transforms into. It was on a run that I realized
+order probably **didn't** matter because you never merged stones back. With that,
+at first my plan was to just process each stone in parallel. Then I started thinking
+about doing it in batches and trying to remember bigger strings of stones across
+several steps, or trying to predict a stone's future and replace it with that.
+It wasn't until I went on that run when I realized if you have `N` identical stones,
+you can just calculate the next step for one of those stones, and then multiply
+that output by `N`. That is, each step you figure out an inventory, a count of each
+type of stone you have. Then for each type, calculate the next step and create a new
+inventory for the next step. That one ran even ffaster than my part 1, taking
+less than half the time. A really great problem that forced me to think about where
+I was doing extra work.
