@@ -2,6 +2,8 @@ use std::collections::HashSet;
 
 use aoc_runner_derive::{aoc, aoc_generator};
 
+use crate::util::Direction;
+
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Grid {
     rows: usize,
@@ -18,7 +20,7 @@ impl Grid {
         visited.insert((posn, dir));
         loop {
             let next = loop {
-                let Some(next) = dir.step(posn, (self.rows, self.cols)) else {
+                let Some(next) = dir.step_bounded(posn, (self.rows, self.cols)) else {
                     break None;
                 };
                 if self.obstacles.contains(&next) || &next == extra {
@@ -67,52 +69,6 @@ pub fn gen(input: &str) -> Grid {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub enum Direction {
-    Up,
-    Right,
-    Down,
-    Left,
-}
-
-pub const DIRS: [Direction; 4] = [
-    Direction::Up,
-    Direction::Right,
-    Direction::Down,
-    Direction::Left,
-];
-
-impl Direction {
-    pub fn step(&self, posn: (usize, usize), grid: (usize, usize)) -> Option<(usize, usize)> {
-        match self {
-            Direction::Up => posn.0.checked_sub(1).map(|r| (r, posn.1)),
-            Direction::Right => {
-                if posn.1 == (grid.1 - 1) {
-                    None
-                } else {
-                    Some((posn.0, posn.1 + 1))
-                }
-            }
-            Direction::Down => {
-                if posn.0 == (grid.0 - 1) {
-                    None
-                } else {
-                    Some((posn.0 + 1, posn.1))
-                }
-            }
-            Direction::Left => posn.1.checked_sub(1).map(|c| (posn.0, c)),
-        }
-    }
-    pub fn turn(self) -> Self {
-        match self {
-            Direction::Up => Direction::Right,
-            Direction::Right => Direction::Down,
-            Direction::Down => Direction::Left,
-            Direction::Left => Direction::Up,
-        }
-    }
-}
-
 #[aoc(day6, part1)]
 pub fn part1(grid: &Grid) -> usize {
     let mut visited = HashSet::new();
@@ -121,7 +77,7 @@ pub fn part1(grid: &Grid) -> usize {
     visited.insert(posn);
     loop {
         let next = loop {
-            let Some(next) = dir.step(posn, (grid.rows, grid.cols)) else {
+            let Some(next) = dir.step_bounded(posn, (grid.rows, grid.cols)) else {
                 break None;
             };
             if grid.obstacles.contains(&next) {
@@ -148,7 +104,7 @@ pub fn part2(grid: &Grid) -> usize {
     visited.insert(posn);
     loop {
         let next = loop {
-            let Some(next) = dir.step(posn, (grid.rows, grid.cols)) else {
+            let Some(next) = dir.step_bounded(posn, (grid.rows, grid.cols)) else {
                 break None;
             };
             if grid.obstacles.contains(&next) {

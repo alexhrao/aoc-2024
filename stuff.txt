@@ -1,0 +1,5 @@
+AOC 2024
+Day 12 - Part 2 : 16
+	generator: 2.900147ms,
+	runner: 73.829999ms
+

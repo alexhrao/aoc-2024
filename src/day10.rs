@@ -1,6 +1,6 @@
 use std::collections::HashSet;
 
-use crate::day6::DIRS;
+use crate::util::DIRS;
 use aoc_runner_derive::{aoc, aoc_generator};
 
 #[aoc_generator(day10)]
@@ -24,7 +24,7 @@ fn score(curr: (usize, usize), grid: &[Vec<u8>]) -> HashSet<(usize, usize)> {
             let mut out = HashSet::new();
             let bounds = (grid.len(), grid[0].len());
             for d in DIRS {
-                if let Some((r, c)) = d.step(curr, bounds) {
+                if let Some((r, c)) = d.step_bounded(curr, bounds) {
                     if grid[r][c] == me + 1 {
                         // Follow this
                         out.extend(&score((r, c), grid));
@@ -45,7 +45,7 @@ fn rate(curr: (usize, usize), grid: &[Vec<u8>]) -> usize {
             let mut count = 0;
             let bounds = (grid.len(), grid[0].len());
             for d in DIRS {
-                if let Some((r, c)) = d.step(curr, bounds) {
+                if let Some((r, c)) = d.step_bounded(curr, bounds) {
                     if grid[r][c] == me + 1 {
                         // Follow this
                         count += rate((r, c), grid);
