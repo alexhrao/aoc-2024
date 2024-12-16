@@ -25,6 +25,7 @@ challenges. It follows the format set out by [`cargo-aoc`](https://github.com/go
 | [9](src/day9.rs)   |   ✅   |   ✅   |                                  |
 | [10](src/day10.rs) |   ✅   |   ✅   | [Commentary](#day-10-commentary) |
 | [11](src/day11.rs) |   ✅   |   ✅   | [Commentary](#day-11-commentary) |
+| [12](src/day12.rs) |   ✅   |   ✅   | [Commentary](#day-12-commentary) |
 
 ### Day 7 Commentary
 
@@ -59,3 +60,25 @@ type of stone you have. Then for each type, calculate the next step and create a
 inventory for the next step. That one ran even ffaster than my part 1, taking
 less than half the time. A really great problem that forced me to think about where
 I was doing extra work.
+
+### Day 12 Commentary
+
+As with yesterday's problem, the first part was relatively simple. I could have
+used `petgraph` (and I haven't ruled out exploring that), but basically if you
+have an undirected graph that tells you where you can walk to from a given plot,
+you can use that graph to ask what nodes are connected to each other. From there
+it's pretty simple to just see how many sides aren't bordering a fellow node,
+and there's your answer.
+
+Part 2 was significantly harder, but also a lot more fun. The solution I ended up
+choosing was to use the "hand on wall" approach. Imagine you stand with a wall to
+your left, and you put your hand on it and just start walking forward. If you know
+that the shape is bounded (which, of course, it is in this case), if you just never
+let go of the wall, you will eventually trace the shape and end up back at where
+you started. That works, but the problem is that these shapes can have "holes" that
+represent inner different plots. The solution here is to remove walls once you've
+traced a single border, and then see if there are any other borders that are not
+accounted for. Solving that led to the final answer, although for awhile I'd
+accidentally filtered the tiles on if they had **two** or more walls, which meant
+depending on the order you looked at walls (which was effectively random),
+you might remove some walls that meant a valid starting wall wasn't found.
