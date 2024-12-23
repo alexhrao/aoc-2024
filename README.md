@@ -29,7 +29,7 @@ challenges. It follows the format set out by [`cargo-aoc`](https://github.com/go
 | [13](src/day13.rs) |   ❌   |   ❌   |                                  |
 | [14](src/day14.rs) |   ❌   |   ❌   |                                  |
 | [15](src/day15.rs) |   ✅   |   ✅   |                                  |
-| [16](src/day16.rs) |   ✅   |   ✅   |                                  |
+| [16](src/day16.rs) |   ✅   |   ✅   | [Commentary](#day-16-commentary) |
 | [17](src/day17.rs) |   ✅   |   ❌   |                                  |
 | [18](src/day18.rs) |   ✅   |   ✅   | [Commentary](#day-18-commentary) |
 | [19](src/day19.rs) |   ✅   |   ✅   | [Commentary](#day-19-commentary) |
@@ -92,6 +92,17 @@ accounted for. Solving that led to the final answer, although for awhile I'd
 accidentally filtered the tiles on if they had **two** or more walls, which meant
 depending on the order you looked at walls (which was effectively random),
 you might remove some walls that meant a valid starting wall wasn't found.
+
+### Day 16 Commentary
+
+Once I saw the maze I knew this had to be a graphing problem. The trick,
+which I came up with on my run, was keying a graph node not just by its
+location (which is what I first thought of), but **also** by its incoming
+direction. In this way, I was able to differentiate going through a node
+by turning from just going straight through. Another option would have been
+to connect perpendicular directions with a cost of 1000 **in the same node**,
+and while I do think that would be cleaner, my method works, so for now I think
+I'm sticking with it.
 
 ### Day 18 Commentary
 

@@ -1,3 +1,5 @@
+use std::fmt::{Display, Write};
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum Direction {
     Up,
@@ -73,4 +75,44 @@ impl Direction {
             Direction::Left => Direction::Right,
         }
     }
+    pub fn ortho(&self, posn: (usize, usize)) -> (usize, usize) {
+        match self {
+            Direction::Up | Direction::Down => posn,
+            Direction::Left | Direction::Right => (posn.1, posn.0),
+        }
+    }
+    pub fn unortho(&self, para: usize, perp: usize) -> (usize, usize) {
+        match self {
+            Direction::Up | Direction::Down => (para, perp),
+            Direction::Left | Direction::Right => (perp, para),
+        }
+    }
+}
+
+impl From<char> for Direction {
+    fn from(value: char) -> Self {
+        match value {
+            '^' => Self::Up,
+            '>' => Self::Right,
+            'v' => Self::Down,
+            '<' => Self::Left,
+            _ => unreachable!(),
+        }
+    }
+}
+
+impl Display for Direction {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_char(match self {
+            Self::Up => '^',
+            Self::Right => '>',
+            Self::Down => 'v',
+            Self::Left => '<',
+        })
+    }
+}
+
+pub fn coords(bounds: (usize, usize)) -> impl Iterator<Item = (usize, usize)> {
+    let (r, c) = bounds;
+    (0..r).flat_map(move |r| (0..c).map(move |c| (r, c)))
 }
