@@ -28,7 +28,7 @@ challenges. It follows the format set out by [`cargo-aoc`](https://github.com/go
 | [12](src/day12.rs) |   ✅   |   ✅   | [Commentary](#day-12-commentary) |
 | [13](src/day13.rs) |   ❌   |   ❌   |                                  |
 | [14](src/day14.rs) |   ❌   |   ❌   |                                  |
-| [15](src/day15.rs) |   ✅   |   ✅   |                                  |
+| [15](src/day15.rs) |   ✅   |   ✅   | [Commentary](#day-15-commentary) |
 | [16](src/day16.rs) |   ✅   |   ✅   | [Commentary](#day-16-commentary) |
 | [17](src/day17.rs) |   ✅   |   ❌   |                                  |
 | [18](src/day18.rs) |   ✅   |   ✅   | [Commentary](#day-18-commentary) |
@@ -92,6 +92,14 @@ accounted for. Solving that led to the final answer, although for awhile I'd
 accidentally filtered the tiles on if they had **two** or more walls, which meant
 depending on the order you looked at walls (which was effectively random),
 you might remove some walls that meant a valid starting wall wasn't found.
+
+### Day 15 Commentary
+
+This one was fun, I must say. Watching the robot push around all the boxes was
+pretty entertaining. The tricky bit of part 2 was recognizing that I needed to
+differentiate up/down from left/right, but I think I found a way of doing that
+where the same code is called regardless of orientation (hence the previous
+changes to [`util.rs](src/util.rs)).
 
 ### Day 16 Commentary
 
