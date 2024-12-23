@@ -31,7 +31,7 @@ challenges. It follows the format set out by [`cargo-aoc`](https://github.com/go
 | [15](src/day15.rs) |   ✅   |   ✅   |                                  |
 | [16](src/day16.rs) |   ✅   |   ✅   |                                  |
 | [17](src/day17.rs) |   ✅   |   ❌   |                                  |
-| [18](src/day18.rs) |   ✅   |   ✅   |                                  |
+| [18](src/day18.rs) |   ✅   |   ✅   | [Commentary](#day-18-commentary) |
 | [19](src/day19.rs) |   ✅   |   ✅   | [Commentary](#day-19-commentary) |
 | [20](src/day20.rs) |   ❌   |   ❌   |                                  |
 | [21](src/day21.rs) |   ❌   |   ❌   |                                  |
@@ -92,6 +92,18 @@ accounted for. Solving that led to the final answer, although for awhile I'd
 accidentally filtered the tiles on if they had **two** or more walls, which meant
 depending on the order you looked at walls (which was effectively random),
 you might remove some walls that meant a valid starting wall wasn't found.
+
+### Day 18 Commentary
+
+This one consisted of a relatively straightforward graphing problem. Once I
+got that for part 1, `petgraph` made it pretty simple -- just call
+`has_path_connecting` on the graph after each nanosecond. As soon as it
+return `false`... there you go
+
+In past years I think I would have found this insurmountably difficult. But
+`AoC`, along with my graph & algorithms class at Georgia Tech, have made me
+much more confident at using graphs, and much better at recognizing when they
+might be useful.
 
 ### Day 19 Commentary
 
