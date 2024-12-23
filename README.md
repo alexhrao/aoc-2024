@@ -28,13 +28,14 @@ challenges. It follows the format set out by [`cargo-aoc`](https://github.com/go
 | [12](src/day12.rs) |   ✅   |   ✅   | [Commentary](#day-12-commentary) |
 | [13](src/day13.rs) |   ❌   |   ❌   |                                  |
 | [14](src/day14.rs) |   ❌   |   ❌   |                                  |
-| [15](src/day15.rs) |   ❌   |   ❌   |                                  |
-| [16](src/day16.rs) |   ❌   |   ❌   |                                  |
-| [17](src/day17.rs) |   ❌   |   ❌   |                                  |
-| [18](src/day18.rs) |   ❌   |   ❌   |                                  |
+| [15](src/day15.rs) |   ✅   |   ✅   |                                  |
+| [16](src/day16.rs) |   ✅   |   ✅   |                                  |
+| [17](src/day17.rs) |   ✅   |   ❌   |                                  |
+| [18](src/day18.rs) |   ✅   |   ✅   |                                  |
 | [19](src/day19.rs) |   ✅   |   ✅   | [Commentary](#day-19-commentary) |
 | [20](src/day20.rs) |   ❌   |   ❌   |                                  |
 | [21](src/day21.rs) |   ❌   |   ❌   |                                  |
+| [22](src/day21.rs) |   ✅   |   ✅   | [Commentary](#day-22-commentary) |
 
 ### Day 7 Commentary
 
@@ -104,3 +105,15 @@ other. That's when I realized that a cache could prove decisive, and after
 adding that it ran in less than a second. Throwing a cache at a problem
 to make it faster is a classic `AoC` solution, and I'm kind of surprised
 that I didn't see it sooner
+
+### Day 22 Commentary
+
+This one was surprisingly straightforward, although I very clearly missed
+an opportunity for optimization. My first part's solution was a basic
+implementation of exactly what was described, what with the mixing and
+pruning, and doing so 2000 times. I didn't bother trying to optimize
+it since when I ran it, it only took around 2 milliseconds to complete.
+
+The second part, I was not so lucky. I'm proud that it basically worked the
+first time, but it took almost 200 seconds to get there! There's surely
+a better solution... but honestly 3 minutes is good enough for me.
