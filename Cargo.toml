@@ -9,5 +9,8 @@ path = "src/lib.rs"
 [dependencies]
 aoc-runner = "0.3.0"
 aoc-runner-derive = "0.3.0"
+mathru = "0.15.4"
+petgraph = "0.6.5"
 rayon = "1.10.0"
 regex = "1.11.1"
+rustworkx-core = "0.15.1"

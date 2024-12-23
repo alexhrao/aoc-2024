@@ -26,7 +26,7 @@ challenges. It follows the format set out by [`cargo-aoc`](https://github.com/go
 | [10](src/day10.rs) |   ✅   |   ✅   | [Commentary](#day-10-commentary) |
 | [11](src/day11.rs) |   ✅   |   ✅   | [Commentary](#day-11-commentary) |
 | [12](src/day12.rs) |   ✅   |   ✅   | [Commentary](#day-12-commentary) |
-| [13](src/day13.rs) |   ❌   |   ❌   |                                  |
+| [13](src/day13.rs) |   ✅   |   ✅   | [Commentary](#day-13-commentary) |
 | [14](src/day14.rs) |   ❌   |   ❌   |                                  |
 | [15](src/day15.rs) |   ✅   |   ✅   | [Commentary](#day-15-commentary) |
 | [16](src/day16.rs) |   ✅   |   ✅   | [Commentary](#day-16-commentary) |
@@ -92,6 +92,18 @@ accounted for. Solving that led to the final answer, although for awhile I'd
 accidentally filtered the tiles on if they had **two** or more walls, which meant
 depending on the order you looked at walls (which was effectively random),
 you might remove some walls that meant a valid starting wall wasn't found.
+
+### Day 13 Commentary
+
+This one took me a bit to recognize. The finding of the "best" combination
+meant, to me, that there would necessarily be multiple combinations (and
+perhaps there are) that would lead to the same conclusion. Thus, I figured
+I'd need to loop over something. It wasn't until I started thinking about how
+one would check an answer that I realized you could actually write this as a
+system of equations; from there, I instantly recognized that this was similar
+to the hailstone problem last year (e.g., the answer is to use a matrix). This
+time, however, instead of attempting to roll my own `rref()`, I used the one
+built into `mathru`, which made the solution a breeze.
 
 ### Day 15 Commentary
 
