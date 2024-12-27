@@ -33,9 +33,12 @@ challenges. It follows the format set out by [`cargo-aoc`](https://github.com/go
 | [17](src/day17.rs) |   ✅   |   ❌   |                                  |
 | [18](src/day18.rs) |   ✅   |   ✅   | [Commentary](#day-18-commentary) |
 | [19](src/day19.rs) |   ✅   |   ✅   | [Commentary](#day-19-commentary) |
-| [20](src/day20.rs) |   ❌   |   ❌   |                                  |
+| [20](src/day20.rs) |   ✅   |   ❌   |                                  |
 | [21](src/day21.rs) |   ❌   |   ❌   |                                  |
-| [22](src/day21.rs) |   ✅   |   ✅   | [Commentary](#day-22-commentary) |
+| [22](src/day22.rs) |   ✅   |   ✅   | [Commentary](#day-22-commentary) |
+| [23](src/day23.rs) |   ✅   |   ✅   |                                  |
+| [24](src/day24.rs) |   ✅   |   ✅   | [Commentary](#day-24-commentary) |
+| [25](src/day25.rs) |   ❌   |   ❌   |                                  |
 
 ### Day 7 Commentary
 
@@ -160,3 +163,18 @@ it since when I ran it, it only took around 2 milliseconds to complete.
 The second part, I was not so lucky. I'm proud that it basically worked the
 first time, but it took almost 200 seconds to get there! There's surely
 a better solution... but honestly 3 minutes is good enough for me.
+
+### Day 24 Commentary
+
+The first part was a relatively straighforward simulation of a circuit.
+The signals propagated as described.
+
+The second part took me quite awhile to get. I started by playing around with
+just swapping random gates, which of course didn't get me very far. I noticed
+that the puzzle specified an adder, so I brushed up on the hardware implementation
+for a half- and full-adder. That led me to start by just printing out each bit
+output (e.g., each `z`). From there, I was able to manually deduce what signals
+to swap. Once I determined that I was right, I went back and implemented the
+deduction as a crude set of fixed `if` statements. I'm not entirely sure that
+this would work for _any_ input... but it works for mine, so I'm content with
+that.
