@@ -36,7 +36,7 @@ challenges. It follows the format set out by [`cargo-aoc`](https://github.com/go
 | [20](src/day20.rs) |   ✅   |   ❌   |                                  |
 | [21](src/day21.rs) |   ❌   |   ❌   |                                  |
 | [22](src/day22.rs) |   ✅   |   ✅   | [Commentary](#day-22-commentary) |
-| [23](src/day23.rs) |   ✅   |   ✅   |                                  |
+| [23](src/day23.rs) |   ✅   |   ✅   | [Commentary](#day-23-commentary) |
 | [24](src/day24.rs) |   ✅   |   ✅   | [Commentary](#day-24-commentary) |
 | [25](src/day25.rs) |   ❌   |   ❌   |                                  |
 
@@ -163,6 +163,23 @@ it since when I ran it, it only took around 2 milliseconds to complete.
 The second part, I was not so lucky. I'm proud that it basically worked the
 first time, but it took almost 200 seconds to get there! There's surely
 a better solution... but honestly 3 minutes is good enough for me.
+
+### Day 23 Commentary
+
+Today was surprisingly straightforward. The first basically involved finding
+triplicates, which I just did the brute force way. I'm convinced there's
+probably a more elegant, faster way to look for that, but my solution runs in
+less than a second, so I'm happy with it.
+
+The second part sort of faked me out. I pretty quickly recognized that this was
+a problem that boiled down to finding the maximal
+[clique](https://en.wikipedia.org/wiki/Clique_(graph_theory)) in the graph of
+connected computer nodes. This problem is known to be NP-hard, so I was looking
+for something about my input that would make it, well, **not** as hard. Finally
+I just tried the basic approach - just doing the exponential-time search for the
+maximally sized clique - and it actually worked on the first try. So I suppose
+the lesson here might be try the "stupid" approach first, you might be surprised
+with the results.
 
 ### Day 24 Commentary
 
