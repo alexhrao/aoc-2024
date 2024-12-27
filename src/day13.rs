@@ -1,7 +1,13 @@
 use std::ops::{Add, Mul};
 
 use aoc_runner_derive::{aoc, aoc_generator};
-use mathru::{algebra::linear::{matrix::{General, Solve}, vector::Vector}, matrix, vector};
+use mathru::{
+    algebra::linear::{
+        matrix::{General, Solve},
+        vector::Vector,
+    },
+    matrix, vector,
+};
 use regex::Regex;
 
 #[derive(Debug, Clone, Copy, Default, Hash, PartialEq, Eq, PartialOrd, Ord)]
@@ -72,14 +78,12 @@ pub fn gen(input: &str) -> Vec<Claw> {
     lines
         .chunks_exact(4)
         .map(|claw| {
-            let a = button_re.captures(claw[0])
-                .unwrap();
+            let a = button_re.captures(claw[0]).unwrap();
             let a = Point {
                 x: a.get(1).unwrap().as_str().parse().unwrap(),
                 y: a.get(2).unwrap().as_str().parse().unwrap(),
             };
-            let b = button_re.captures(claw[1])
-                .unwrap();
+            let b = button_re.captures(claw[1]).unwrap();
             let b = Point {
                 x: b.get(1).unwrap().as_str().parse().unwrap(),
                 y: b.get(2).unwrap().as_str().parse().unwrap(),
@@ -100,7 +104,11 @@ pub fn part1(claws: &[Claw]) -> u64 {
     use rayon::prelude::*;
     claws
         .par_iter()
-        .filter_map(|c| c.solve().filter(|&(a, b)| a <= 100 && b <= 100).map(|(a, b)| 3*a + b))
+        .filter_map(|c| {
+            c.solve()
+                .filter(|&(a, b)| a <= 100 && b <= 100)
+                .map(|(a, b)| 3 * a + b)
+        })
         .sum()
 }
 
@@ -114,7 +122,7 @@ pub fn part2(claws: &[Claw]) -> u64 {
             let mut c = *c;
             c.prize.x += FUDGE;
             c.prize.y += FUDGE;
-            c.solve().map(|(a, b)| 3*a + b)
+            c.solve().map(|(a, b)| 3 * a + b)
         })
         .sum()
 }
