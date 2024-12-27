@@ -1,5 +1,3 @@
-use std::ops::{Add, Mul};
-
 use aoc_runner_derive::{aoc, aoc_generator};
 use mathru::{
     algebra::linear::{
@@ -10,38 +8,7 @@ use mathru::{
 };
 use regex::Regex;
 
-#[derive(Debug, Clone, Copy, Default, Hash, PartialEq, Eq, PartialOrd, Ord)]
-struct Point<T> {
-    x: T,
-    y: T,
-}
-
-impl Mul<u64> for Point<u64> {
-    type Output = Self;
-    fn mul(self, rhs: u64) -> Self::Output {
-        Self {
-            x: self.x * rhs,
-            y: self.y * rhs,
-        }
-    }
-}
-
-impl Mul<Point<u64>> for u64 {
-    type Output = Point<u64>;
-    fn mul(self, rhs: Point<u64>) -> Self::Output {
-        rhs * self
-    }
-}
-
-impl Add<Self> for Point<u64> {
-    type Output = Self;
-    fn add(self, rhs: Self) -> Self::Output {
-        Self {
-            x: self.x + rhs.x,
-            y: self.y + rhs.y,
-        }
-    }
-}
+use crate::util::Point;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Default, Hash)]
 pub struct Claw {
