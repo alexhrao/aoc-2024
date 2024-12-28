@@ -87,10 +87,7 @@ pub fn part2(robots: &[Robot]) -> usize {
         for r in &mut robots {
             r.step();
         }
-        let posns: HashSet<(isize, isize)> = robots
-            .iter()
-            .map(|r| (r.posn.x, r.posn.y))
-            .collect();
+        let posns: HashSet<(isize, isize)> = robots.iter().map(|r| (r.posn.x, r.posn.y)).collect();
         if posns.len() == robots.len() {
             println!();
             println!("t: {t}");
