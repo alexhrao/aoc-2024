@@ -34,7 +34,7 @@ format set out by [`cargo-aoc`](https://github.com/gobanos/cargo-aoc)
 | [17](src/day17.rs) |   ✅   |   ❌   |                       |
 | [18](src/day18.rs) |   ✅   |   ✅   | [Commentary](#day-18) |
 | [19](src/day19.rs) |   ✅   |   ✅   | [Commentary](#day-19) |
-| [20](src/day20.rs) |   ✅   |   ❌   |                       |
+| [20](src/day20.rs) |   ✅   |   ✅   | [Commentary](#day-20) |
 | [21](src/day21.rs) |   ❌   |   ❌   |                       |
 | [22](src/day22.rs) |   ✅   |   ✅   | [Commentary](#day-22) |
 | [23](src/day23.rs) |   ✅   |   ✅   | [Commentary](#day-23) |
@@ -164,6 +164,40 @@ other. That's when I realized that a cache could prove decisive, and after
 adding that it ran in less than a second. Throwing a cache at a problem
 to make it faster is a classic `AoC` solution, and I'm kind of surprised
 that I didn't see it sooner
+
+### Day 20
+
+Both parts threw me for a good long while. The first part, which I'm leaving
+as-is as a monument to what could have been.
+
+At first, I took a sort of "brute force" approach. In this method, I found all
+walls that were surrounded by at least two non-walls. Then, one by one, I tested
+each of them, and saw if the resulting shortest path from `S` to `E` was at
+least 100 steps fewer. This... worked, but took several _minutes_ to complete.
+Once I saw the second part, I realized there wasn't any way my part 1 logic
+would work for part 2.
+
+The first breakthrough happened on a run, when I realized that if I knew the
+optimal path, I maybe could solve this. The basic principle was that for a step
+`p` on the optimal path, I could collect all other nodes that were in a 20-step
+radius from me. For each of them, I could compute the distance from them to the
+end, and using **that** information, I could see if that cheat would save me
+any time. However, when I got back and tried to implement this approach, I got
+stuck on finding the optimal path; using the `rustworkx` implementation of
+`all_shortest_paths`, my program basically just hung.
+
+The second breakthrough happened while I was waiting at the Tulsa International
+Airport in Oklahoma. It was there that I realized that it's possible there's
+only **one** possible path from start to end; I was so used to assuming that
+there are multiple paths, that I forgot to check this at first. Once I was able
+to prove to myself that there was indeed only one path, finding that optimal
+path was trivial. I spent the rest of the flight implementing my approach, and
+now I can solve **both** parts in under half a second each.
+
+This problem, especially part 2, taught me to check my assumptions first, and
+that, while many of these problems **do** require graph algorithms... they don't
+always. Sometimes good old-fashioned simple looping is all that's necessary to
+solve the problem at hand.
 
 ### Day 22
 

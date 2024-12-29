@@ -102,6 +102,27 @@ impl Track {
             ),
         )
     }
+    fn path(&self) -> HashMap<(usize, usize), usize> {
+        // The code below proves there is **exactly** one path. No need to find
+        // the "best" path; there's only one
+        let mut posn = self.start;
+        let mut path = HashMap::new();
+        loop {
+            path.insert(posn, path.len());
+            if self.end == posn {
+                break path;
+            }
+            for dir in DIRS {
+                let Some(next) = dir.step_bounded(posn, self.bounds) else {
+                    continue;
+                };
+                if !self.walls.contains(&next) && !path.contains_key(&next) {
+                    posn = next;
+                    break;
+                }
+            }
+        }
+    }
 }
 
 #[aoc(day20, part1)]
@@ -125,6 +146,51 @@ pub fn part1(track: &Track) -> usize {
 }
 
 #[aoc(day20, part2)]
-pub fn part2(_track: &Track) -> usize {
-    0
+pub fn part2(track: &Track) -> usize {
+    const CHEAT_LEN: usize = 20;
+    let dists = track.path();
+    let mut path = dists.iter().collect::<Vec<_>>();
+    path.sort_unstable_by_key(|(_, d)| **d);
+    // Let's see how long (time wise) it would take to get all viable spots within
+    // `CHEAT_LEN` steps (rise + run)
+    let mut visited = HashSet::new();
+    let mut cheats = 0;
+    for (&(r, c), &d) in &path {
+        visited.insert((r, c));
+        let left = c.saturating_sub(CHEAT_LEN);
+        let right = (c + CHEAT_LEN).clamp(0, track.bounds.1);
+        let top = r.saturating_sub(CHEAT_LEN);
+        let bottom = (r + CHEAT_LEN).clamp(0, track.bounds.0);
+        for rr in top..=bottom {
+            for cc in left..=right {
+                let cheat_dist = rr.abs_diff(r) + cc.abs_diff(c);
+                if cheat_dist > CHEAT_LEN {
+                    continue;
+                }
+                let there = (rr, cc);
+                if visited.contains(&there) {
+                    // No use in going back to someplace we've already been
+                    continue;
+                }
+                let Some(&dd) = dists.get(&there) else {
+                    // This place isn't on the path (almost certainly because
+                    //  it's a wall). No use in travelling somewhere that's
+                    //  not going to get us anywhere
+                    continue;
+                };
+                // So theoretically we could cheat our way there, and "there"
+                //  is a place I haven't already visited. Now the question is
+                //  this: How much time do I save by cheating my way there?
+                //  That would be the time it would **normally** take me to get
+                //  to (rr, cc), less the time this cheat takes
+                // How long it would normally take to get from me to "there"
+                if (dd - d) >= (cheat_dist + 100) {
+                    // So, the normal distance is 100 + cheat_dist or longer.
+                    //  That means we saved at LEAST 100 steps
+                    cheats += 1;
+                }
+            }
+        }
+    }
+    cheats
 }
