@@ -31,7 +31,7 @@ format set out by [`cargo-aoc`](https://github.com/gobanos/cargo-aoc)
 | [14](src/day14.rs) |   ✅   |   ✅   |                       |
 | [15](src/day15.rs) |   ✅   |   ✅   | [Commentary](#day-15) |
 | [16](src/day16.rs) |   ✅   |   ✅   | [Commentary](#day-16) |
-| [17](src/day17.rs) |   ✅   |   ❌   |                       |
+| [17](src/day17.rs) |   ❌   |   ❌   |                       |
 | [18](src/day18.rs) |   ✅   |   ✅   | [Commentary](#day-18) |
 | [19](src/day19.rs) |   ✅   |   ✅   | [Commentary](#day-19) |
 | [20](src/day20.rs) |   ✅   |   ✅   | [Commentary](#day-20) |
