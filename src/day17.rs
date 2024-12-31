@@ -153,61 +153,37 @@ pub fn part1(machine: &Machine) -> String {
     out
 }
 
-fn shit1(a: u64) -> u64 {
-    // B = (([A] % 8) ^ 2) ^ ([A] / (1 << (([A] % 8) ^ 2))) ^ 3
-    ((a % 8) ^ 2) ^ (a / (1 << ((a % 8) ^ 2))) ^ 3
+#[inline(always)]
+fn out(a: u64) -> u64 {
+    (((a & 0b111) ^ 0b1) ^ (a / (1 << ((a & 0b111) ^ 0b010)))) % 8
 }
 
-// fn shit2(a: u64) -> u64 {
-//     // B = (([A] % 8) ^ 2) ^ ([A] / (1 << (([A] % 8) ^ 2))) ^ 3
-//     (a % 8) ^ (a / (1 << ((a % 8) ^ 2))) ^ 1
-// }
-
-fn shit3(a: u64) -> u64 {
-    ((a & 0b111) ^ 0b1) ^ (a / (1 << ((a & 0b111) ^ 0b010)))
+fn chain(insts: &[u64], mut seed: u64) -> Option<u64> {
+    if insts.is_empty() {
+        return Some(seed);
+    }
+    seed *= 8;
+    let tgt = insts[0];
+    let rest = &insts[1..];
+    for offset in 0..8 {
+        if out(seed + offset) == tgt {
+            if let Some(ret) = chain(rest, seed + offset) {
+                return Some(ret);
+            }
+        }
+    }
+    None
 }
 
 #[aoc(day17, part2)]
-pub fn part2(_machine: &Machine) -> u64 {
-    for a in 0..u64::MAX {
-        let s1 = shit1(a);
-        let s2 = shit3(a);
-        if s1 != s2 {
-            panic!("{a}");
+pub fn part2(machine: &Machine) -> u64 {
+    let mut insts = machine.insts.clone();
+    insts.reverse();
+
+    for seed in 0.. {
+        if let Some(a) = chain(&insts, seed) {
+            return a;
         }
-        // println!("{a}: {} ==? {}: {:?}", s1, s2, s1 == s2);
     }
-    // B = (([A] % 8) ^ 2) ^ ([A] / (1 << (([A] % 8) ^ 2))) ^ 3
-
-    // let insts = machine.insts.clone();
-    // let mut machine = machine.clone();
-
-    // for i in 142_635_000_000.. {
-    //     if i % 5000000 == 0 {
-    //         println!("{i}");
-    //     }
-    //     machine.reset(i);
-    //     let chk = loop {
-    //         let ml = machine.output.len();
-    //         if ml > insts.len() {
-    //             break false;
-    //         }
-    //         if !insts.starts_with(&machine.output[..ml]) {
-    //             break false;
-    //         }
-    //         let Some(args) = machine
-    //             .insts
-    //             .get(machine.inst_counter..=machine.inst_counter + 1)
-    //         else {
-    //             break machine.output == insts;
-    //         };
-    //         let op = Operation::from(args[0]);
-    //         let arg = args[1] as u8;
-    //         op.execute(arg, &mut machine);
-    //     };
-    //     if chk {
-    //         return i;
-    //     }
-    // }
-    0
+    panic!("Could not find a suitable value for a");
 }
