@@ -149,7 +149,7 @@ how the machine might actually work.
 Part 2 was considerably more difficult. At first I just tried a brute force
 approach, hoping (in vain, I might add) that the true value of `a` would be
 something that wasn't very big. Unfortunately, I was sorely mistaken; based
-on my final answer, I was only 0.3% through; according to some back of the
+on my final answer, I was only 0.3% through. According to some back of the
 envelope math, it would have taken my initial solution 32 _days_ to complete.
 For reference, my ultimate solution only takes 1.3 **µs**.
 
@@ -157,10 +157,12 @@ The solution started when I was at home with my dad. He and I were looking at it
 when he suggested I work through what the example program was actually
 **doing**, not just trying random numbers to see what worked. From there I was
 able to boil down the instructions to two things: A manipulation of `B` that
-solely depends on `A`, and dividing `A` by 8. Slowly but surely it dawned on me
+solely depends on `A`, and then dividing `A` by 8. Slowly it began to dawn on me
 that instead of starting from the _beginning_ of the instructions, I should
 start from the end, since `A` will necessarily decrease with each step (of
 course, if `A` is 0, it stays the same, but that's also never going to work).
+Starting from the end means I can start from smaller numbers and then work my
+way up to the beginning.
 
 The second breakthrough happened when I realized that dividing by 8 will
 **truncate** the value; in this way, all numbers `[8,15]` will become `1`. So
