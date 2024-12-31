@@ -31,7 +31,7 @@ format set out by [`cargo-aoc`](https://github.com/gobanos/cargo-aoc)
 | [14](src/day14.rs) |   ✅   |   ✅   |                       |
 | [15](src/day15.rs) |   ✅   |   ✅   | [Commentary](#day-15) |
 | [16](src/day16.rs) |   ✅   |   ✅   | [Commentary](#day-16) |
-| [17](src/day17.rs) |   ❌   |   ❌   |                       |
+| [17](src/day17.rs) |   ✅   |   ✅   | [Commentary](#day-17) |
 | [18](src/day18.rs) |   ✅   |   ✅   | [Commentary](#day-18) |
 | [19](src/day19.rs) |   ✅   |   ✅   | [Commentary](#day-19) |
 | [20](src/day20.rs) |   ✅   |   ✅   | [Commentary](#day-20) |
@@ -139,6 +139,45 @@ by turning from just going straight through. Another option would have been
 to connect perpendicular directions with a cost of 1000 **in the same node**,
 and while I do think that would be cleaner, my method works, so for now I think
 I'm sticking with it.
+
+### Day 17
+
+Part 1 was relatively straightforward; fun, even. Simulate a simple 3-bit
+computer with 8 simple instructions. Didn't take long, and had fun modelling
+how the machine might actually work.
+
+Part 2 was considerably more difficult. At first I just tried a brute force
+approach, hoping (in vain, I might add) that the true value of `a` would be
+something that wasn't very big. Unfortunately, I was sorely mistaken; based
+on my final answer, I was only 0.3% through; according to some back of the
+envelope math, it would have taken my initial solution 32 _days_ to complete.
+For reference, my ultimate solution only takes 1.3 **µs**.
+
+The solution started when I was at home with my dad. He and I were looking at it
+when he suggested I work through what the example program was actually
+**doing**, not just trying random numbers to see what worked. From there I was
+able to boil down the instructions to two things: A manipulation of `B` that
+solely depends on `A`, and dividing `A` by 8. Slowly but surely it dawned on me
+that instead of starting from the _beginning_ of the instructions, I should
+start from the end, since `A` will necessarily decrease with each step (of
+course, if `A` is 0, it stays the same, but that's also never going to work).
+
+The second breakthrough happened when I realized that dividing by 8 will
+**truncate** the value; in this way, all numbers `[8,15]` will become `1`. So
+I added a loop that checked all of the offsets. That got me much further, but I
+kept hitting a problem where eventually the chain would end (even though I did
+make it to instructions 8 and 9).
+
+The final breakthrough happened while staring at the output, and realizing that
+sometimes, the algorithm would miss viable answers; that was when I realized I
+needed a way to backtrack. So I wrote a recursive function that didn't bail out
+the moment it hit a dead end, and that function - `chain` - ended up being my
+final answer.
+
+Overall a really great problem that made me think about what I was actually
+trying to solve, but more importantly it made me think critically about what
+a partial solution might look like; this insight is what enabled me to build up
+to the ultimate answer.
 
 ### Day 18
 
